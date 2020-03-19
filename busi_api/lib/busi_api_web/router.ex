@@ -18,12 +18,12 @@ defmodule BusiApiWeb.Router do
 
   scope "/api", BusiApiWeb do
     pipe_through [:api, :auth]
+    get "/user/businesses/:id", UserController, :show
     get "/businesses", BusinessController, :index
     post "/businesses/create/:id", BusinessController, :create
     get "/businesses/:id", BusinessController, :show
     put "/businesses/:id", BusinessController, :update
     delete "/businesses/:id", BusinessController, :delete
-    post "/businesses/add/:id_user/:id_event", BusinessController, :insert_user_event
   end
 
   pipeline :browser do
