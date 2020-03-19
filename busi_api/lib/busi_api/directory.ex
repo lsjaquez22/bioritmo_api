@@ -5,6 +5,7 @@ defmodule BusiApi.Directory do
 
   import Ecto.Query, warn: false
   alias BusiApi.Repo
+  alias BusiApi.Accounts
 
   alias BusiApi.Directory.Business
 
@@ -49,10 +50,16 @@ defmodule BusiApi.Directory do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_business(attrs \\ %{}) do
-    %Business{}
-    |> Business.changeset(attrs)
-    |> Repo.insert()
+  def create_business(id, attrs \\ %{}) do
+    {:ok,event} =
+      %Business{}
+      |> Business.changeset(attrs)
+      |> Repo.insert()
+    event = Repo.preload(event, [:users])
+    user = Accounts.get_user!(id)
+    event_changeset = Ecto.Changeset.change(event)
+    user_event = event_changeset |> Ecto.Changeset.put_assoc(:users, [user])
+    Repo.update!(user_event)
   end
 
   @doc """
