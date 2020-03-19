@@ -34,4 +34,5 @@ defmodule BusiApiWeb.Auth.Guardian do
     {:ok, token, _claims} = encode_and_sign(user)
     {:ok, user, token}
   end
+
 end

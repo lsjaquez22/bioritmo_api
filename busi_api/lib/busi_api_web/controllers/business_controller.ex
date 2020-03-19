@@ -11,13 +11,9 @@ defmodule BusiApiWeb.BusinessController do
     render(conn, "index.json", businesses: businesses)
   end
 
-  def create(conn, %{"business" => business_params}) do
-    with {:ok, %Business{} = business} <- Directory.create_business(business_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.business_path(conn, :show, business))
-      |> render("show.json", business: business)
-    end
+  def create(conn, %{"id" => id, "business" => business_params}) do
+    business = Directory.create_business(id, business_params)
+    render(conn, "show.json", business: business)
   end
 
   def show(conn, %{"id" => id}) do

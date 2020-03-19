@@ -10,6 +10,7 @@ defmodule BusiApi.Directory.Business do
     field :year, :integer
     field :month, :integer
     field :day, :integer
+    many_to_many :users, BusiApi.Accounts.User, join_through: "users_events"
 
     timestamps()
   end

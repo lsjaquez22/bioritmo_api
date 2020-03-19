@@ -23,6 +23,22 @@ defmodule BusiApiWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
+
+    events =
+      Enum.map(user.events, fn x ->
+        %{
+          day: x.day,
+          description: x.description,
+          id: x.id,
+          location: x.location,
+          month: x.month,
+          name: x.name,
+          tag: x.tag,
+          year: x.year
+        }
+      end)
+
+    user = %{user | events: events}
     render(conn, "show.json", user: user)
   end
 
@@ -50,10 +66,4 @@ defmodule BusiApiWeb.UserController do
     end
   end
 
-  def signout(conn, %{"token" => token}) do
-    conn = Guardian.Plug.sign_out(conn)
-
-    conn
-    |> render("userOut.json", %{users: "conn"})
-  end
 end
