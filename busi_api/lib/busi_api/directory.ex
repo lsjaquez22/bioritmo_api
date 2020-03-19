@@ -51,10 +51,11 @@ defmodule BusiApi.Directory do
 
   """
   def create_business(id, attrs \\ %{}) do
-    {:ok,event} =
+    {:ok, event} =
       %Business{}
       |> Business.changeset(attrs)
       |> Repo.insert()
+
     event = Repo.preload(event, [:users])
     user = Accounts.get_user!(id)
     event_changeset = Ecto.Changeset.change(event)
