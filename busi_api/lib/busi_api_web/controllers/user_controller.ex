@@ -66,10 +66,4 @@ defmodule BusiApiWeb.UserController do
     end
   end
 
-  def signout(conn, %{"token" => token}) do
-    conn = Guardian.Plug.sign_out(conn)
-
-    conn
-    |> render("userOut.json", %{users: "conn"})
-  end
 end
