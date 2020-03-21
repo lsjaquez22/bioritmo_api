@@ -23,6 +23,7 @@ defmodule BusiApiWeb.Router do
     get "/businesses", BusinessController, :index
     post "/businesses/create/:id", BusinessController, :create
     post "/businesses/add/:id_user/:id_event", BusinessController, :add
+    post "/businesses/delete/:id_user/:id_event", BusinessController, :remove_in_user
     get "/businesses/:id", BusinessController, :show
     put "/businesses/:id", BusinessController, :update
     delete "/businesses/:id", BusinessController, :delete

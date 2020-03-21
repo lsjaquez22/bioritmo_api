@@ -21,6 +21,11 @@ defmodule BusiApiWeb.BusinessController do
     send_resp(conn, :no_content, "")
   end
 
+  def remove_in_user(conn, %{"id_user" => id_user, "id_event" => id_event}) do
+    business = Directory.remove_business(id_user, id_event)
+    send_resp(conn, :no_content, "")
+  end
+
   def show(conn, %{"id" => id}) do
     business = Directory.get_business!(id)
     render(conn, "show.json", business: business)

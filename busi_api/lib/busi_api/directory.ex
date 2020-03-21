@@ -66,13 +66,22 @@ defmodule BusiApi.Directory do
   def add_business(id_user, id_event) do
     event = Repo.get!(Business, id_event)
 
-    IO.inspect(event)
-
     event = Repo.preload(event, [:users])
     user = Accounts.get_user!(id_user)
-    IO.inspect(user)
     event_changeset = Ecto.Changeset.change(event)
     user_event = event_changeset |> Ecto.Changeset.put_assoc(:users, [user | event.users])
+    Repo.update!(user_event)
+  end
+
+  def remove_business(id_user, id_event) do
+    event = Repo.get!(Business, id_event)
+    event = Repo.preload(event, [:users])
+    user = Accounts.get_user!(id_user)
+    event_changeset = Ecto.Changeset.change(event)
+    IO.inspect(event.users)
+    IO.inspect(user)
+    user_event = event_changeset |> Ecto.Changeset.put_assoc(:users, event.users - [user])
+    IO.inspect(event.users)
     Repo.update!(user_event)
   end
 
