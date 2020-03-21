@@ -63,6 +63,19 @@ defmodule BusiApi.Directory do
     Repo.update!(user_event)
   end
 
+  def add_business(id_user, id_event) do
+    event = Repo.get!(Business, id_event)
+
+    IO.inspect(event)
+
+    event = Repo.preload(event, [:users])
+    user = Accounts.get_user!(id_user)
+    IO.inspect(user)
+    event_changeset = Ecto.Changeset.change(event)
+    user_event = event_changeset |> Ecto.Changeset.put_assoc(:users, [user | event.users])
+    Repo.update!(user_event)
+  end
+
   @doc """
   Updates a business.
 
