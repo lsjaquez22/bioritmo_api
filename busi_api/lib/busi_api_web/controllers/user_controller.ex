@@ -65,5 +65,4 @@ defmodule BusiApiWeb.UserController do
       |> render("user.json", %{user: user, token: token})
     end
   end
-
 end
