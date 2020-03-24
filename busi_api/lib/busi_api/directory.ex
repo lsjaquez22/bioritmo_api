@@ -80,7 +80,7 @@ defmodule BusiApi.Directory do
     event_changeset = Ecto.Changeset.change(event)
     IO.inspect(event.users)
     IO.inspect(user)
-    user_event = event_changeset |> Ecto.Changeset.put_assoc(:users, event.users - [user])
+    user_event = event_changeset |> Ecto.Changeset.put_assoc(:users, [event.users - [user]])
     IO.inspect(event.users)
     Repo.update!(user_event)
   end
