@@ -11,6 +11,11 @@ defmodule BusiApiWeb.BusinessController do
     render(conn, "index.json", businesses: businesses)
   end
 
+  def owner_events(conn, %{"id" => id}) do
+    businesses = Directory.list_my_businesses(id)
+    render(conn, "index.json", businesses: businesses)
+  end
+
   def create(conn, %{"id" => id, "business" => business_params}) do
     business = Directory.create_business(id, business_params)
     render(conn, "show.json", business: business)

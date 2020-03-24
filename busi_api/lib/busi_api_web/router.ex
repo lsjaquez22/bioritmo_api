@@ -19,6 +19,7 @@ defmodule BusiApiWeb.Router do
   scope "/api", BusiApiWeb do
     pipe_through [:api, :auth]
     get "/user/businesses/:id", UserController, :show
+    get "/user/businesses/owner/:id", BusinessController, :owner_events
     put "/user/:id", UserController, :update
     get "/businesses", BusinessController, :index
     post "/businesses/create/:id", BusinessController, :create

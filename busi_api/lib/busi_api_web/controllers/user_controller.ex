@@ -34,7 +34,8 @@ defmodule BusiApiWeb.UserController do
           month: x.month,
           name: x.name,
           tag: x.tag,
-          year: x.year
+          year: x.year,
+          owner: x.owner
         }
       end)
 
@@ -55,7 +56,8 @@ defmodule BusiApiWeb.UserController do
           month: x.month,
           name: x.name,
           tag: x.tag,
-          year: x.year
+          year: x.year,
+          owner: x.owner
         }
       end)
 

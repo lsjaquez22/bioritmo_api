@@ -19,7 +19,8 @@ defmodule BusiApiWeb.BusinessView do
       location: business.location,
       year: business.year,
       month: business.month,
-      day: business.day
+      day: business.day,
+      owner: business.owner
     }
   end
 end
