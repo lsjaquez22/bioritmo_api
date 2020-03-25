@@ -4,6 +4,7 @@ defmodule BusiApi.Directory do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Query, only: [from: 2]
   alias BusiApi.Repo
   alias BusiApi.Accounts
 
@@ -20,6 +21,14 @@ defmodule BusiApi.Directory do
   """
   def list_businesses do
     Repo.all(Business)
+  end
+
+  def list_my_businesses(id) do
+    query =
+      from u in Business,
+        where: u.owner == ^id
+
+    Repo.all(query)
   end
 
   @doc """
@@ -80,7 +89,7 @@ defmodule BusiApi.Directory do
     event_changeset = Ecto.Changeset.change(event)
     IO.inspect(event.users)
     IO.inspect(user)
-    user_event = event_changeset |> Ecto.Changeset.put_assoc(:users, event.users - [user])
+    user_event = event_changeset |> Ecto.Changeset.put_assoc(:users, [event.users - [user]])
     IO.inspect(event.users)
     Repo.update!(user_event)
   end

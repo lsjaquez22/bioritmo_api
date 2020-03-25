@@ -34,7 +34,8 @@ defmodule BusiApiWeb.UserController do
           month: x.month,
           name: x.name,
           tag: x.tag,
-          year: x.year
+          year: x.year,
+          owner: x.owner
         }
       end)
 
@@ -44,6 +45,23 @@ defmodule BusiApiWeb.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Accounts.get_user!(id)
+
+    events =
+      Enum.map(user.events, fn x ->
+        %{
+          day: x.day,
+          description: x.description,
+          id: x.id,
+          location: x.location,
+          month: x.month,
+          name: x.name,
+          tag: x.tag,
+          year: x.year,
+          owner: x.owner
+        }
+      end)
+
+    user = %{user | events: events}
 
     with {:ok, %User{} = user} <- Accounts.update_user(user, user_params) do
       render(conn, "show.json", user: user)

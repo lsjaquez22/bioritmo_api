@@ -10,6 +10,7 @@ defmodule BusiApi.Directory.Business do
     field :year, :integer
     field :month, :integer
     field :day, :integer
+    field :owner, :integer
     many_to_many :users, BusiApi.Accounts.User, join_through: "users_events"
 
     timestamps()
@@ -18,7 +19,7 @@ defmodule BusiApi.Directory.Business do
   @doc false
   def changeset(events, attrs) do
     events
-    |> cast(attrs, [:name, :description, :tag, :location, :year, :month, :day])
-    |> validate_required([:name, :description, :tag, :location, :year, :month, :day])
+    |> cast(attrs, [:name, :description, :tag, :location, :year, :month, :day, :owner])
+    |> validate_required([:name, :description, :tag, :location, :year, :month, :day, :owner])
   end
 end
