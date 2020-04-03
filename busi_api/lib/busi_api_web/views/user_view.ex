@@ -10,7 +10,8 @@ defmodule BusiApiWeb.UserView do
       year: user.year,
       month: user.month,
       day: user.day,
-      token: token
+      token: token,
+      image: user.image
     }
   end
 
@@ -22,7 +23,8 @@ defmodule BusiApiWeb.UserView do
       year: user.year,
       month: user.month,
       day: user.day,
-      events: user.events
+      events: user.events,
+      image: user.image
     }
   end
 

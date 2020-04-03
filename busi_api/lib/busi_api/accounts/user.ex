@@ -10,6 +10,7 @@ defmodule BusiApi.Accounts.User do
     field :year, :integer
     field :month, :integer
     field :day, :integer
+    field :image, :string
     many_to_many :events, BusiApi.Directory.Business, join_through: "users_events"
 
     timestamps()
@@ -18,8 +19,8 @@ defmodule BusiApi.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :password, :user_name, :year, :month, :day])
-    |> validate_required([:email, :password, :user_name, :year, :month, :day])
+    |> cast(attrs, [:email, :password, :user_name, :year, :month, :day, :image])
+    |> validate_required([:email, :password, :user_name, :year, :month, :day, :image])
     |> validate_format(:email, ~r/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
     |> validate_length(:password, min: 6)
     |> unique_constraint(:email)
