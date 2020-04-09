@@ -71,9 +71,21 @@ defmodule BusiApi.Accounts do
 
   """
   def update_user(%User{} = user, attrs) do
+    IO.inspect(attrs["user_name"])
+    IO.inspect(attrs["month"])
     user
-    |> User.changeset(attrs)
+    |> Ecto.Changeset.change(
+      user_name: attrs["user_name"],
+      year: attrs["year"],
+      month: attrs["month"],
+      day: attrs["day"]
+      # image: attrs["image"]
+    )
     |> Repo.update()
+
+    # user
+    # |> User.changeset(attrs)
+    # |> Repo.update()
   end
 
   @doc """
